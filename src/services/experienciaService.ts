@@ -1,7 +1,7 @@
 import api from "./api";
 
 export interface Experiencia {
-  id?: string;
+  id: string;
   titulo: string;
   descricao: string;
   tipo: string;
@@ -34,6 +34,10 @@ export const deleteExperiencia = async (id: string) => {
   const response = await api.delete(`/experiencias/${id}`);
   return response.data;
 };  
+export const getExperienciaByTipo = async (tipo: string) : Promise<Experiencia[]> => {
+  const response = await api.get<Experiencia[]>(`/experiencias?tipo=${tipo}`);
+  return response.data;
+};
 
 export const createOrUpdateExperiencia = async (getExperiencia: Experiencia) => {
   if (getExperiencia.id === "") {  
