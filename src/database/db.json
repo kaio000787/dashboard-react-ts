@@ -10,7 +10,7 @@
       "foto": "https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg",
       "nome": "kaio cesar ",
       "cargo": "desenvolvedor",
-      "resumo": "testando"
+      "resumo": "la ele"
     }
   ],
   "experiencias": [
@@ -21,6 +21,22 @@
       "tipo": "profissional",
       "anoInicio": "2023",
       "anoFim": "2024"
+    },
+    {
+      "id": "1",
+      "titulo": "teste",
+      "descricao": "teste",
+      "tipo": "academico",
+      "anoInicio": "2023",
+      "anoFim": "2025"
+    },
+    {
+      "id": "2",
+      "titulo": "fdftghjkjhgfds",
+      "descricao": "ee",
+      "tipo": "academico",
+      "anoInicio": "32",
+      "anoFim": "32"
     }
   ],
   "portfolio": [
