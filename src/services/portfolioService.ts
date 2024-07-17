@@ -3,7 +3,7 @@ import api from "./api";
 export interface Portfolio {
   id: string;
   link: string;
-  imagem: string;
+  image: string;
   title: string;
 }
 

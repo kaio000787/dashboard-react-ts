@@ -62,7 +62,7 @@ const ListaPortfolio: React.FC = () => {
                 {portfolio.map((portfolio, index) => (
                     <tr key={index}>
                         <td>{portfolio.title}</td>
-                        <td><img src={portfolio.imagem} alt={portfolio.title} className={styles.image} /></td>
+                        <td><img src={portfolio.image} alt={portfolio.title} className={styles.image} /></td>
                         <td><a href={portfolio.link} target="_blank" rel="noreferrer">{portfolio.link}</a></td>
                         <td>
                             <button onClick={() => handleEdit(portfolio)}>Editar</button>

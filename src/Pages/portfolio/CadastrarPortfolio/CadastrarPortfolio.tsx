@@ -18,13 +18,13 @@ const CadastrarPortfolio: React.FC = () => {
 const initialValues: Portfolio = {
     id: "",
     link: "",
-    imagem: "",
+    image: "",
     title: "",
 };
 
 const validationSchema = Yup.object().shape({
     link: Yup.string().required("Este campo é obrigatório"),
-    imagem: Yup.string().required("Este campo é obrigatório"),
+    image: Yup.string().required("Este campo é obrigatório"),
     title: Yup.string().required("Este campo é obrigatório"),
 });
 
@@ -59,10 +59,10 @@ const validationSchema = Yup.object().shape({
                     />
 
                     <Input
-                        label="Imagem"
-                        name="imagem"
-                        errors={errors.imagem}
-                        touched={touched.imagem}
+                        label="Image"
+                        name="image"
+                        errors={errors.image}
+                        touched={touched.image}
                     />
 
                     <Input
