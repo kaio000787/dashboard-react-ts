@@ -28,7 +28,7 @@ export const Table = <T,>({ columns, data, handleEdit, handleDelete }: TableProp
                 {data.map((item, index) => (
                     <tr key={index}>
                         {columns.map((column, columnsIndex) => (
-                            column.accessor == "Image" ? (
+                            column.accessor == "Imagem" ? (
                                 <td key={columnsIndex} className={styles.td}>
                                     <img src={item[column.accessor] as string} alt="Image" />
                                 </td>

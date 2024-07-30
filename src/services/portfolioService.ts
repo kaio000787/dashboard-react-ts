@@ -1,20 +1,20 @@
 import api from "./api";
 
 export interface Portfolio {
-  id: string;
+  id?: string;
   link: string;
-  image: string;
-  title: string;
+  imagem: string;
+  titulo: string;
 }
 
 export const createPortfolio = async (portfolio: Portfolio) => {
     portfolio.id = ((await getPortfolios()).length).toString();
-    const response = await api.post("/portfolio", portfolio);
+    const response = await api.post("/portfolio/", portfolio);
     return response.data;
   };
   
   export const getPortfolios = async () => {
-    const response = await api.get<Portfolio[]>("/portfolio");
+    const response = await api.get<Portfolio[]>("/portfolio/");
     return response.data;
   };
   
