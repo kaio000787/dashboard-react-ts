@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Formik, Form } from "formik";
+import Form from "../../../Components/forms/Form";
 
 import * as Yup from "yup";
 
@@ -9,93 +9,78 @@ import Input from "../../../Components/forms/Input/Input";
 import Textarea from "../../../Components/forms/Textarea/Textarea";
 import {
   Informacoes,
-  updateInformacoes,
   getInformacoes,
+  createOrUpdateInformacoes,
+  deleteInformacoes,
 } from "../../../services/informacoesService";
 import InformacoesCard from "./InformacoesCard/InformacoesCard";
 import Button from "../../../Components/common/Button";
-
+import Title from "../../../Components/common/Title";
 const CadastrarInformacoes: React.FC = () => {
-  const [informacoes, setInformacoes] = useState<Informacoes>(
-    {} as Informacoes
-  );
+  const [informacoes, setInformacoes] = useState<Informacoes>({} as Informacoes);
 
   const initialValues: Informacoes = {
-    id: "",
+    id: 0,
     foto: "",
     nome: "",
     cargo: "",
     resumo: "",
   };
-
   const validationSchema = Yup.object().shape({
-    foto: Yup.string().required("Este campo é obrigatório"),
-    nome: Yup.string().required("Este campo é obrigatório"),
-    cargo: Yup.string().required("Este campo é obrigatório"),
-    resumo: Yup.string().required("Este campo é obrigatório"),
+    foto: Yup.string().required("campo obrigatório"),
+    nome: Yup.string().required("campo obrigatório"),
+    cargo: Yup.string().required("campo obrigatório"),
+    resumo: Yup.string().required("campo obrigatótório"),
   });
-
-  const fatchInformacoes = async () => {
+  const fetchInformacoes = async () => {
     try {
-      const informacao = await getInformacoes();
-      setInformacoes(informacao);
+      const informacoes = await getInformacoes();
+      setInformacoes(informacoes);
+      console.log(informacoes);
     } catch (error) {
       console.error("Erro ao buscar informações:", error);
     }
   };
-
   useEffect(() => {
-    fatchInformacoes();
+    fetchInformacoes();
   }, []);
 
-  const onSubimit = async (
+  const onSubmit = async (
     values: Informacoes,
     { resetForm }: { resetForm: () => void }
   ) => {
     try {
-      await updateInformacoes(values);
+      await createOrUpdateInformacoes(values);
       setInformacoes(values);
-      console.log(values);
+      console.log({ values });
       resetForm();
-      alert("Formulario enviado com sucesso!");
+      alert("Formulário enviado com sucesso!");
     } catch (error) {
-      console.log(error);
-      console.error("error ao enviar o formulário:", error);
-      alert("ocorreu um erro ao enviar o formulário. Tente novamente.");
+      console.error("Erro ao enviar o formulário:", error);
+      alert("Erro ao enviar o formulário.Tente novamente. ");
     }
   };
-
   const handleDelete = async () => {
     try {
-      await updateInformacoes(initialValues);
+      await deleteInformacoes();
       setInformacoes(initialValues);
-      alert("Informações deletadas com sucesso!");
+      alert("Formulário excluído com sucesso!");
     } catch (error) {
-      console.error("Error ao deletar informações:", error);
-      alert("ocorreu um erro ao deletar as informações. Tente novamente.");
+      console.error("Erro ao excluir o formulário:", error);
+      alert("Erro ao excluir o formulário. Tente novamente. ");
     }
   };
-
   return (
-    <div
-      className={styles.formwrapper} 
-    >
-      <Formik
+    <div className={styles.formWrapper}>
+      <Form
         initialValues={informacoes}
-        enableReinitialize={true}
+        enableReiniciar={true}
         validationSchema={validationSchema}
-        onSubmit={onSubimit}
+        onSubmit={onSubmit}
       >
-        {({ errors, touched }) => (
-          <Form className={styles.form}>
-            <h2 className={styles.title}> Cadastrar Imformações</h2>
-
-            <Input
-              label="Foto"
-              name="foto"
-              errors={errors.foto}
-              touched={touched.foto}
-            />
+        {({ touched, errors }) => (
+          <>
+            <Title>Informações Pessoais</Title>
 
             <Input
               label="Nome"
@@ -104,12 +89,17 @@ const CadastrarInformacoes: React.FC = () => {
               touched={touched.nome}
             />
             <Input
+              label="Foto"
+              name="foto"
+              errors={errors.foto}
+              touched={touched.foto}
+            />
+            <Input
               label="Cargo"
               name="cargo"
               errors={errors.cargo}
               touched={touched.cargo}
             />
-
             <Textarea
               label="Resumo"
               name="resumo"
@@ -117,21 +107,20 @@ const CadastrarInformacoes: React.FC = () => {
               touched={touched.resumo}
             />
 
-            <button type="submit" className={styles.button}>Salvar</button>
-          </Form>
+            <Button type="submit">Salvar</Button>
+          </>
         )}
-      </Formik>
+      </Form>
+      {informacoes && (
+        <div className={styles.cardContainer}>
+          <InformacoesCard informacao={informacoes} />
 
-      {informacoes &&
-        Object.entries(informacoes).some(
-          ([key, value]) => key !== "id" && value.trim() !== ""
-        ) && (
-          <div className={styles.cardContainer}>
-            <InformacoesCard informacao={informacoes} />
-            <Button onClick={handleDelete} red>Deletar</Button>
-          </div>
-        )}
+          <Button onClick={handleDelete} red>
+            Deletar
+          </Button>
+        </div>
+      )}
     </div>
-  );
+  )
 };
 export default CadastrarInformacoes;

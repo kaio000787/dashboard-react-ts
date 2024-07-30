@@ -29,7 +29,7 @@ const Input: React.FC<InputProps> = ({label, name, type = 'text', errors, touche
           />
             <ErrorMessage name={name} component="div" className={styles.errorMsg} />
         </fieldset>
-    );
+    )
 };
 
 export default Input;
